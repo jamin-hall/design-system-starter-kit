@@ -26,10 +26,8 @@
   <!--
     First column
   -->
-  <div class="slds-p-horizontal--large slds-col slds-size--2-of-3">
-    <h2 class="slds-text-heading--medium slds-m-top--large">Example of injected data</h2>
-    <p class="slds-text-body--regular slds-m-vertical--large">Data shown in this table comes from <a href="https://github.com/salesforce-ux/design-system-starter-kit/blob/master/app/views/data/example.json"><code>views/data/example.json</code></a>.</p>
-
+  <div class="slds-col slds-size--2-of-3">
+    
     <!--
       Data table component
       https://www.lightningdesignsystem.com/components/data-tables/#flavor-basic-data-table-striped-rows
@@ -46,17 +44,20 @@
             so we're manually setting its width to half the size of the table
             using the spacing utility slds-size--1-of-2
           -->
-          <th scope="col" class="slds-size--1-of-2">
-            <div class="slds-truncate" title="Account Name">Account Name</div>
-          </th>
           <th scope="col">
-            <div class="slds-truncate" title="Billing State/Province">Billing State/Province</div>
-          </th>
-          <th scope="col">
-            <div class="slds-truncate" title="Phone">Phone</div>
+            <div class="slds-truncate" title="Message Name">Message Name</div>
           </th>
           <th scope="col">
             <div class="slds-truncate" title="Type">Type</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Account">Account</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Created">Created</div>
+          </th>
+           <th scope="col">
+            <div class="slds-truncate" title="Last Sent">Last Sent</div>
           </th>
         </tr>
       </thead>
@@ -65,19 +66,22 @@
           Looping around values in Nunjucks
           http://mozilla.github.io/nunjucks/templating.html#for
         -->
-        {% for account in accounts %}
+        {% for message in messages %}
         <tr>
           <th scope="row" data-label="Account Name">
-            <div class="slds-truncate" title="{{ account.name }}"><a href="javascript:void(0);">{{ account.name }}</a></div>
+            <div class="slds-truncate" title="{{ message.name }}"><a href="javascript:void(0);">{{ message.name }}</a></div>
           </th>
           <td data-label="Billing State/Province">
-            <div class="slds-truncate" title="{{ account.state }}">{{ account.state }}</div>
+            <div class="slds-truncate" title="{{ message.type }}">{{ message.type }}</div>
           </td>
           <td data-label="Phone">
-            <div class="slds-truncate" title="{{ account.phone }}">{{ account.phone }}</div>
+            <div class="slds-truncate" title="{{ message.account }}">{{ message.account }}</div>
           </td>
           <td data-label="Type">
-            <div class="slds-truncate" title="{{ account.type }}">{{ account.type }}</div>
+            <div class="slds-truncate" title="{{ message.created }}">{{ message.created }}</div>
+          </td>
+          <td data-label="">
+            <div class="slds-truncate" title="{{ message.sent }}">{{ message.sent }}</div>
           </td>
         </tr>
         {% endfor %}
@@ -88,65 +92,26 @@
   <!--
     Second column
   -->
-  <div class="slds-p-around--large slds-col slds-size--1-of-3">
-    <h2 class="slds-section__title slds-m-bottom--medium">Examples of interactions</h2>
-    <p class="slds-text-body--regular slds-m-bottom--large">A few components are interactive, thanks to the JavaScript bundled in the starter kit.</p>
-    <h3 class="slds-section-title--divider slds-m-bottom--medium">Tabs</h3>
-    <!--
-      Tabs component
-      https://www.lightningdesignsystem.com/components/tabs/
-    -->
+  <div class="slds-p-top--medium slds-col slds-size--1-of-3">
     <div class="slds-tabs--default">
-      <ul class="slds-tabs--default__nav" role="tablist">
-        <li class="slds-tabs--default__item slds-text-heading--label slds-active" title="Item One" role="presentation"><a class="slds-tabs--default__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item">Item One</a></li>
-        <li class="slds-tabs--default__item slds-text-heading--label" title="Item Two"
-          role="presentation"><a class="slds-tabs--default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" id="tab-default-2__item">Item Two</a></li>
-        <li class="slds-tabs--default__item slds-text-heading--label" title="Item Three"
-          role="presentation"><a class="slds-tabs--default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-3" id="tab-default-3__item">Item Three</a></li>
+      <ul id="preview-and-performance-tabs" class="slds-tabs--default__nav" role="tablist">
+        <li class="slds-tabs--default__item slds-text-title--caps slds-active" title="Item One" role="presentation"><a class="slds-tabs--default__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="true" aria-controls="preview-tab" id="tab-default-1__item">Preview</a></li>
+        <li class="slds-tabs--default__item slds-text-title--caps" title="Item Two"
+          role="presentation"><a class="slds-tabs--default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" id="tab-default-2__item">Performance</a></li>
       </ul>
-      <div id="tab-default-1" class="slds-tabs--default__content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">Item One Content</div>
-      <div id="tab-default-2" class="slds-tabs--default__content slds-hide" role="tabpanel" aria-labelledby="tab-default-2__item">Item Two Content</div>
-      <div id="tab-default-3" class="slds-tabs--default__content slds-hide" role="tabpanel" aria-labelledby="tab-default-3__item">Item Three Content</div>
-    </div>
-
-    <h3 class="slds-section-title--divider slds-m-vertical--medium">Dropdown menu</h3>
-    Click me:
-    <!--
-      Dropdown Menu Component
-      https://www.lightningdesignsystem.com/components/menus/#flavor-dropdown-dropdown-menu
-    -->
-    <div class="slds-dropdown-trigger slds-dropdown-trigger--click" aria-expanded="true">
-      <button class="slds-button slds-button--icon-border-filled" aria-haspopup="true">
-        <svg aria-hidden="true" class="slds-button__icon">
-          <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
-        </svg>
-        <span class="slds-assistive-text">Show More</span>
-      </button>
-      <div class="slds-dropdown slds-dropdown--left">
-        <ul class="dropdown__list" role="menu">
-          <li class="slds-dropdown__item">
-            <a href="javascript:void(0);" role="menuitem">
-              <p class="slds-truncate">Menu Item One</p>
-            </a>
-          </li>
-          <li class="slds-dropdown__item">
-            <a href="javascript:void(0);" role="menuitem">
-              <p class="slds-truncate">Menu Item Two</p>
-            </a>
-          </li>
-          <li class="slds-dropdown__item">
-            <a href="javascript:void(0);" role="menuitem">
-              <p class="slds-truncate">Menu Item Three</p>
-            </a>
-          </li>
-          <li class="slds-dropdown__item slds-has-divider--top-space">
-            <a href="javascript:void(0);" role="menuitem">
-              <p class="slds-truncate">Menu Item Four</p>
-            </a>
-          </li>
-        </ul>
+      <div id="preview-tab" class="slds-tabs--default__content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">
+        <figure class="slds-image slds-image--card">
+          <a href="javascript:void(0);" class="slds-image__crop slds-image__crop--1-by-1">
+            <img src="/assets/images/phone-preview.png" alt="Description of the image" />
+          </a>
+          <figcaption class="slds-image__title slds-image__title--card">
+            <button class="slds-button slds-button--neutral">Edit Message</button>
+          </figcaption>
+        </figure>
       </div>
-    </div>
+      <div id="tab-default-2" class="slds-tabs--default__content slds-hide" role="tabpanel" aria-labelledby="tab-default-2__item">Item Two Content</div>
+     
+   
   </div>
 </div>
 
